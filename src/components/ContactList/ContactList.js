@@ -4,8 +4,8 @@ import './ContactList.css';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 import '../../components/anime.css';
-// import { removeContact } from '../../redux/actions/action.js';
-import { removeContactSuccess } from '../../redux/reducers/contacts/contactsActions.js';
+import contactsOperations from '../../redux/reducers/contacts/contactsOperations.js';
+import contactSelector from '../../redux/reducers/contacts/contactsSelectors.js';
 
 const ContactList = function ({ array, deleteItem }) {
   console.log(array);
@@ -36,20 +36,16 @@ ContactList.propTypes = {
   ),
   deleteItem: PropTypes.func.isRequired,
 };
-const mapDispatchToProps = {
-  deleteItem: removeContactSuccess,
-};
+
 // ---------------------1-version-filtering-----
-const handleFilter = (contacts, filter) => {
-  console.log(contacts);
-  return contacts.filter(contactItem =>
-    contactItem.name.toLowerCase().includes(filter.toLowerCase()),
-  );
+
+const mapDispatchToProps = {
+  deleteItem: contactsOperations.removeContact,
 };
 
 const mapStateToProps = state => {
   console.log(state.contacts);
-  return { array: handleFilter(state.contacts.items, state.contacts.filter) };
+  return { array: contactSelector.getFilteredItems(state) };
 };
 // ----------------------2-version-filtering- з диструктуризацією------------
 // const mapStateToProps = state => {

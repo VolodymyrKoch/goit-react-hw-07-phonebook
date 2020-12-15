@@ -1,109 +1,109 @@
-// import types from '../actionTypes.js';
-import { createReducer } from '@reduxjs/toolkit';
-// імпортуєм весь файл action.js і
-// редактуємо його як обєкт з імям actions
-// import actions from '../actions/action.js';
-import { v4 as uuidv4 } from 'uuid';
+// // import types from '../actionTypes.js';
+// import { createReducer } from '@reduxjs/toolkit';
+// // імпортуєм весь файл action.js і
+// // редактуємо його як обєкт з імям actions
+// // import actions from '../actions/action.js';
+// import { v4 as uuidv4 } from 'uuid';
 
-import {
-  addContact,
-  removeContact,
-  changeFilter,
-  erroMasage,
-} from '../actions/action.js';
 // import {
-//   ADD_CONTACT,
-//   REMOVE_CONTACT,
-//   CHANGE_FILTER,
-//   ERROR_MESSAGE,
-// } from '../actionTypes.js';
-// const { ADD_CONTACT, REMOVE_CONTACT } = types;
-import { combineReducers } from 'redux';
+//   addContact,
+//   removeContact,
+//   changeFilter,
+//   erroMasage,
+// } from '../actions/action.js';
+// // import {
+// //   ADD_CONTACT,
+// //   REMOVE_CONTACT,
+// //   CHANGE_FILTER,
+// //   ERROR_MESSAGE,
+// // } from '../actionTypes.js';
+// // const { ADD_CONTACT, REMOVE_CONTACT } = types;
+// import { combineReducers } from 'redux';
 
-// диструктиризуєм наш обєкт actions
-// const { addContact, removeContact } = actions;
-// console.log(addContact, removeContact);
+// // диструктиризуєм наш обєкт actions
+// // const { addContact, removeContact } = actions;
+// // console.log(addContact, removeContact);
 
-const initialState = {
-  
-  items: [],
-  filter: '',
-  erroMasage: '',
-};
-// ----with Toolkit----
-const CreateAddContact = (state, action) => {
-  return [...state, { ...action.payload, id: uuidv4() }];
-};
-const CreateRemoveContact = (state, action) => {
-  return state.filter(item => {
-    return item.id !== action.payload;
-  });
-};
+// const initialState = {
 
-const itemsCreateReducer = createReducer(initialState.items, {
-  [addContact]: CreateAddContact,
-  [removeContact]: CreateRemoveContact,
-});
-console.log(itemsCreateReducer);
-
-const filterCreateReducer = createReducer(initialState.filter, {
-  [changeFilter]: (state, action) => action.payload,
-});
-
-const erroMasageCreateReducer = createReducer(initialState.erroMasage, {
-  [erroMasage]: (state, action) => action.payload,
-});
-
-export const contactsReducer = combineReducers({
-  items: itemsCreateReducer,
-  filter: filterCreateReducer,
-  erroMasage: erroMasageCreateReducer,
-});
-
-// ----------without Toolkit--------------
-// export const itemsReducer = (state = initialState.items, { type, payload }) => {
-//   switch (type) {
-//     case ADD_CONTACT:
-//       return [...state, { ...payload, id: uuidv4() }];
-
-//     case REMOVE_CONTACT:
-//       return state.filter(item => {
-//         return item.id !== payload;
-//       });
-
-//     default:
-//       return state;
-//   }
+//   items: [],
+//   filter: '',
+//   erroMasage: '',
+// };
+// // ----with Toolkit----
+// const CreateAddContact = (state, action) => {
+//   return [...state, { ...action.payload, id: uuidv4() }];
+// };
+// const CreateRemoveContact = (state, action) => {
+//   return state.filter(item => {
+//     return item.id !== action.payload;
+//   });
 // };
 
-// export const filterReducer = (
-//   state = initialState.filter,
-//   { type, payload },
-// ) => {
-//   switch (type) {
-//     case CHANGE_FILTER:
-//       return payload;
+// const itemsCreateReducer = createReducer(initialState.items, {
+//   [addContact]: CreateAddContact,
+//   [removeContact]: CreateRemoveContact,
+// });
+// console.log(itemsCreateReducer);
 
-//     default:
-//       return state;
-//   }
-// };
+// const filterCreateReducer = createReducer(initialState.filter, {
+//   [changeFilter]: (state, action) => action.payload,
+// });
 
-// export const erroMasageReducer = (
-//   state = initialState.erroMasage,
-//   { type, payload },
-// ) => {
-//   switch (type) {
-//     case ERROR_MESSAGE:
-//       return payload;
-
-//     default:
-//       return state;
-//   }
-// };
+// const erroMasageCreateReducer = createReducer(initialState.erroMasage, {
+//   [erroMasage]: (state, action) => action.payload,
+// });
 
 // export const contactsReducer = combineReducers({
-//   items: itemsReducer,
-//   filter: filterReducer,
-//   erroMasage: erroMasageReducer,
+//   items: itemsCreateReducer,
+//   filter: filterCreateReducer,
+//   erroMasage: erroMasageCreateReducer,
 // });
+
+// // ----------without Toolkit--------------
+// // export const itemsReducer = (state = initialState.items, { type, payload }) => {
+// //   switch (type) {
+// //     case ADD_CONTACT:
+// //       return [...state, { ...payload, id: uuidv4() }];
+
+// //     case REMOVE_CONTACT:
+// //       return state.filter(item => {
+// //         return item.id !== payload;
+// //       });
+
+// //     default:
+// //       return state;
+// //   }
+// // };
+
+// // export const filterReducer = (
+// //   state = initialState.filter,
+// //   { type, payload },
+// // ) => {
+// //   switch (type) {
+// //     case CHANGE_FILTER:
+// //       return payload;
+
+// //     default:
+// //       return state;
+// //   }
+// // };
+
+// // export const erroMasageReducer = (
+// //   state = initialState.erroMasage,
+// //   { type, payload },
+// // ) => {
+// //   switch (type) {
+// //     case ERROR_MESSAGE:
+// //       return payload;
+
+// //     default:
+// //       return state;
+// //   }
+// // };
+
+// // export const contactsReducer = combineReducers({
+// //   items: itemsReducer,
+// //   filter: filterReducer,
+// //   erroMasage: erroMasageReducer,
+// // });

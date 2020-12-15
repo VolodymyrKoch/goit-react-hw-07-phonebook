@@ -1,5 +1,4 @@
 import { contactsReducer } from './reducers/contacts/contactsReducer.js';
-// import { composeWithDevTools } from 'redux-devtools-extension';
 import { configureStore } from '@reduxjs/toolkit';
 
 const store = configureStore({

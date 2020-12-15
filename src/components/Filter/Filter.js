@@ -5,11 +5,11 @@ import { CSSTransition } from 'react-transition-group';
 import '../../components/anime.css';
 import '../anime.css';
 import { connect } from 'react-redux';
-// import { changeFilter } from '../../redux/actions/action.js';
+
 import { changeFilter } from '../../redux/reducers/contacts/contactsActions.js';
+import contactSelector from '../../redux/reducers/contacts/contactsSelectors.js';
 
 function Filter({ filter, filterRender, visibleFilter }) {
-  // console.log(visibleFilter);
   return (
     <CSSTransition
       in={visibleFilter}
@@ -41,11 +41,9 @@ const mapDispatchToProps = {
   filterRender: changeFilter,
 };
 const mapStateToProps = state => {
-  // console.log(state.contacts.items);
-  const { filter, items } = state.contacts;
   return {
-    filter: filter,
-    visibleFilter: items.length > 1,
+    filter: contactSelector.getFilter(state),
+    visibleFilter: contactSelector.getVisibleFilter(state),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

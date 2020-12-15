@@ -3,17 +3,10 @@ import classes from './ContactForm.module.css';
 import { CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
 import '../../components/anime.css';
-// import { v4 as uuidv4 } from 'uuid';
-// import { addContact, erroMasage } from '../../redux/actions/action.js';
-// import { erroMasage } from '../../redux/actions/action.js';
-
-// import { erroMasage } from '../../redux/reducers/contacts/contactsActions.js';
-
 import contactsOperations from '../../redux/reducers/contacts/contactsOperations.js';
-// import classesEror from './components/ErrorMassage/ErrorMassage.module.css';
 import classesEror from '../ErrorMassage/ErrorMassage.module.css';
-// import ErrorMassage from './components/ErrorMassage/ErrorMassage.js';
 import ErrorMassage from '../ErrorMassage/ErrorMassage.js';
+import contactSelector from '../../redux/reducers/contacts/contactsSelectors.js';
 
 const INITIAL_STATE = {
   name: '',
@@ -28,20 +21,15 @@ class ContactForm extends Component {
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({
-      // id: uuidv4(),
       [name]: value,
     });
   };
   handleSubmit = e => {
     e.preventDefault();
-    // this.props.addContact({ ...this.state });
     console.log(this.props.contacts);
-    // console.log(
-    //   this.props.contacts.find(item => item.name === this.state.name),
-    // );
+
     if (this.props.contacts.find(item => item.name === this.state.name)) {
       this.setState({ erroMasage: true });
-      // console.log('робатаю');
       setTimeout(() => {
         this.setState({ erroMasage: false });
       }, 1500);
@@ -50,8 +38,7 @@ class ContactForm extends Component {
       this.props.addContact({ name, number });
     }
 
-    this.setState({ name: '', number: '' }); //1 варіант очищаю input після submit(відправки)
-    // this.setState(INITIAL_STATE);  //2 варіант очищаю input після submit(відправки)
+    this.setState({ name: '', number: '' });
   };
 
   render() {
@@ -113,14 +100,9 @@ class ContactForm extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  contacts: state.contacts.items,
+  contacts: contactSelector.getContact(state),
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   addContact: contact => {
-//     dispatch(addContact(contact));
-//   },
-// });
 const mapDispatchToProps = {
   addContact: contactsOperations.addContact,
 };

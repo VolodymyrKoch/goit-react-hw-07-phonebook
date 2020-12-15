@@ -9,13 +9,12 @@ import {
   removeContactRequest,
   removeContactSuccess,
   removeContactError,
-  changeFilter,
   erroMasage,
 } from './contactsActions.js';
 
 axios.defaults.baseURL = 'http://localhost:2000';
 
-const addContact = (contac) => dispatch => {
+const addContact = contac => dispatch => {
   dispatch(addContactRequest());
   axios
     .post('/contacts', { ...contac })
@@ -27,14 +26,12 @@ const addContact = (contac) => dispatch => {
       dispatch(addContactError(error.message));
     });
 };
-console.log(addContact);
 
 const getContacts = () => dispatch => {
   dispatch(getContactsRequest());
   axios
     .get('/contacts')
     .then(response => {
-      // console.log(response);
       dispatch(getContactsSuccess(response.data));
     })
     .catch(error => {

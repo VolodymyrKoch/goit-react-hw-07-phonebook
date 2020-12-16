@@ -4,13 +4,11 @@ const getContact = state => state.contacts.items;
 
 const getFilter = state => state.contacts.filter;
 
-const getVisibleFilter = state => state.contacts.length > 1;
-
+const getVisibleFilter = state => state.contacts.items.length > 1;
 
 const getFilteredItems = createSelector(
   [getContact, getFilter],
-  ( contacts , filter) => {
-    console.log(contacts);
+  (contacts, filter) => {
     return contacts.filter(contactItem =>
       contactItem.name.toLowerCase().includes(filter.toLowerCase()),
     );
